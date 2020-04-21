@@ -1,5 +1,3 @@
-
-
 const movies = require('../movies')
 
 const allMovies = (request, response) => {
@@ -13,13 +11,15 @@ const idCheck = (request, response) => {
     const matchedDirs = movies.filter((movie) => (movie.directors.join('').toLowerCase())
       .includes([id.toLowerCase()]))
 
-    return response.send(matchedDirs)
+    return matchedDirs
+      ? response.send(matchedDirs)
+      : response.status(404).send('This isn\'t THE END but it is a dead end.....')
   }
 
-  return response.send(matchingTitles)
+  return matchingTitles
+    ? response.send(matchingTitles)
+    : response.status(404).send('This isn\'t THE END but it is a dead end.....')
 }
-
-
 const saveNewMovie = (request, response) => {
   const {
     title, directors, releaseDate, rating, runTime, genres
@@ -39,6 +39,4 @@ const saveNewMovie = (request, response) => {
   return response.status(201).send(newMovie)
 }
 
-module.exports = {
-  allMovies, idCheck, saveNewMovie
-}
+module.exports = { allMovies, idCheck, saveNewMovie }

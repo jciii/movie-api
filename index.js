@@ -7,7 +7,6 @@ app.get('/movies', allMovies)
 
 app.get('/movies/:id', idCheck)
 
-
 app.post('/', bodyParser.json(), saveNewMovie)
 
 app.get('*', (request, response) => {
